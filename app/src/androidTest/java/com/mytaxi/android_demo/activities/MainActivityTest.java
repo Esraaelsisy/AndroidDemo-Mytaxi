@@ -35,6 +35,7 @@ public class MainActivityTest {
 
 
 
+    // Launching the app Main Activity
     @Rule
     public IntentsTestRule<MainActivity> mActivityTestRule = new IntentsTestRule<>(MainActivity.class);
 
@@ -79,6 +80,7 @@ public class MainActivityTest {
     @Before
     public void Setup()
     {
+
         intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
 
     }
