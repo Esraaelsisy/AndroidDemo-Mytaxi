@@ -1,7 +1,6 @@
 package com.mytaxi.android_demo.screens;
 
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 import android.view.View;
 
 import com.mytaxi.android_demo.R;
@@ -24,8 +23,6 @@ import static org.hamcrest.Matchers.not;
 
 public class DriverSearchScreen {
 
-    private String Tag = "Driver Search Screen : ";
-
     private Matcher<View> getSearchAutoComplete()
     {
         return withId(R.id.textSearch) ;
@@ -43,22 +40,22 @@ public class DriverSearchScreen {
     }
 
 
-    public void SearchforDiver(String searchCriteria , String driverName , ActivityTestRule<MainActivity> mActivityTestRule )
+    public void SearchForDiver(String searchCriteria , String driverName , ActivityTestRule<MainActivity> mActivityTestRule )
 
     {
         onView(Matchers.allOf(getSearchAutoComplete(),isDisplayed())).perform (click() ,typeText(searchCriteria),closeSoftKeyboard());
-        Log.d(Tag , "User enters " + searchCriteria + "in Search Text Box");
+        System.out.println("User enters " + searchCriteria + "in Search Text Box");
         onView(withText(driverName)).inRoot(withDecorView(not(mActivityTestRule.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed())).perform(click());
-        Log.d(Tag , "User Clicks on " + driverName + " from Search results");
+        System.out.println("User Clicks on " + driverName + " from Search results");
 
     }
 
     public void Logout()
     {
         onView(Matchers.allOf(getSideMenu() , isDisplayed())).perform(click());
-        Log.d(Tag , "User clicks on side menu");
+        System.out.println("User clicks on side menu");
         onView(Matchers.allOf(getLogoutLink(), isDisplayed())).perform(click());
-        Log.d(Tag , "user clicks on Logout");
+        System.out.println("user clicks on Logout");
 
     }
 

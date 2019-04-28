@@ -29,9 +29,9 @@ import static org.hamcrest.Matchers.not;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
-    LoginScreen loginObj = new LoginScreen();
-    DriverSearchScreen driverSearchObj = new DriverSearchScreen();
-    DriverProfileScreen driverProfileScreen =  new DriverProfileScreen();
+    protected LoginScreen loginObj = new LoginScreen();
+    protected DriverSearchScreen driverSearchObj = new DriverSearchScreen();
+    protected DriverProfileScreen driverProfileScreen =  new DriverProfileScreen();
 
 
 
@@ -45,7 +45,7 @@ public class MainActivityTest {
                     "android.permission.ACCESS_FINE_LOCATION");
 
     @Test
-    public void mainActivityTest() throws IOException, JSONException {
+    public void userCanLoginSuccessfullyAndCallDriver() throws IOException, JSONException {
 
         // Reading username and password from JSON File
         String sURL = "https://randomuser.me/api/?seed=a1f30d446f820665";
@@ -58,11 +58,11 @@ public class MainActivityTest {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            Log.d("Exception : ", e.getMessage());
+            System.out.println("Exception : "+  e.getMessage());
         }
 
         // Search for a driver name with some search criteria
-        driverSearchObj.SearchforDiver("sa" , "Sarah Scott" , mActivityTestRule);
+        driverSearchObj.SearchForDiver("sa" , "Sarah Scott" , mActivityTestRule);
 
         // Assert the driver name
         driverProfileScreen.AssertDriverName("Sarah Scott");
@@ -75,6 +75,20 @@ public class MainActivityTest {
 
         // Logout from the app
         driverSearchObj.Logout();
+    }
+
+
+    @Test
+    public  void userEntersWrongCredentials()
+    {
+        loginObj.Login("esraa", "123456");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            Log.d("Exception : ", e.getMessage());
+        }
+
+        loginObj.AssertLoginFailedErrorMsg();
     }
 
     @Before
