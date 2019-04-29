@@ -31,12 +31,16 @@ public class DriverSearchScreen {
     private  Matcher<View> getSideMenu()
     {
         return withContentDescription("Open navigation drawer");
-
     }
 
     private  Matcher<View> getLogoutLink()
     {
         return withId(R.id.design_menu_item_text) ;
+    }
+
+    private  Matcher<View> getSearchScreenHeader()
+    {
+        return withText("mytaxi demo") ;
     }
 
 
@@ -57,6 +61,12 @@ public class DriverSearchScreen {
         onView(Matchers.allOf(getLogoutLink(), isDisplayed())).perform(click());
         System.out.println("user clicks on Logout");
 
+    }
+
+    public void AssertSearchHeaderText()
+    {
+        onView(Matchers.allOf(getSearchScreenHeader() , isDisplayed())).check(matches(withText("mytaxi demo")));
+        System.out.println("Asserted that Search Screen is shown with header: 'mytaxi demo'");
     }
 
 }
